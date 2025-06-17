@@ -1,12 +1,17 @@
-
 import { useState } from "react";
 import { ShoppingCart, Star, Zap, Shield, Cpu, Wifi, Battery, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/contexts/CartContext";
+import { Cart } from "@/components/Cart";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [selectedRobot, setSelectedRobot] = useState(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { addToCart, getTotalItems } = useCart();
+  const { toast } = useToast();
 
   const robots = [
     {
@@ -87,9 +92,18 @@ const Index = () => {
     }
   ];
 
-  const addToCart = (robot) => {
-    console.log(`Added ${robot.name} to cart`);
-    // In a real app, this would add to cart state/context
+  const handleAddToCart = (robot) => {
+    addToCart({
+      id: robot.id,
+      name: robot.name,
+      price: robot.price,
+      image: robot.image
+    });
+    
+    toast({
+      title: "Added to Cart!",
+      description: `${robot.name} has been added to your cart.`,
+    });
   };
 
   return (
@@ -109,10 +123,13 @@ const Index = () => {
             <div className="flex items-center space-x-6">
               <a href="#products" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Products</a>
               <a href="#features" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Features</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+              <a href="mailto:saikumarade55@gmail.com" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
+              <Button 
+                onClick={() => setIsCartOpen(true)}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                Cart (0)
+                Cart ({getTotalItems()})
               </Button>
             </div>
           </div>
@@ -228,7 +245,7 @@ const Index = () => {
 
                   <div className="flex space-x-3">
                     <Button 
-                      onClick={() => addToCart(robot)}
+                      onClick={() => handleAddToCart(robot)}
                       className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
@@ -297,7 +314,7 @@ const Index = () => {
             <div className="flex justify-center space-x-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Support</a>
+              <a href="mailto:saikumarade55@gmail.com" className="text-gray-400 hover:text-white transition-colors">Support</a>
             </div>
             <div className="mt-6 pt-6 border-t border-gray-800">
               <p className="text-gray-400">© 2024 Skaidex Robotics. All rights reserved.</p>
@@ -305,6 +322,9 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Cart Modal */}
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 };

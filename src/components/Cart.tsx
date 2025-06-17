@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ShoppingCart, X, Plus, Minus, CreditCard } from 'lucide-react';
+import { ShoppingCart, X, Plus, Minus, CreditCard, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
@@ -38,55 +38,57 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-[80vh] overflow-hidden">
-        <CardHeader className="border-b">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-2xl max-h-[80vh] overflow-hidden bg-black border-green-500/50">
+        <CardHeader className="border-b border-green-500/30 bg-black/90">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <ShoppingCart className="w-6 h-6" />
-              Your Cart ({getTotalItems()} items)
+            <CardTitle className="text-2xl flex items-center gap-2 text-green-400 font-mono">
+              <Terminal className="w-6 h-6" />
+              [CART_SYSTEM] ({getTotalItems()} units)
             </CardTitle>
-            <Button variant="ghost" size="icon" onClick={onClose}>
+            <Button variant="ghost" size="icon" onClick={onClose} className="text-green-400 hover:text-cyan-400 hover:bg-green-500/10">
               <X className="w-6 h-6" />
             </Button>
           </div>
         </CardHeader>
         
-        <CardContent className="p-0">
+        <CardContent className="p-0 bg-black/95">
           {cartItems.length === 0 ? (
             <div className="p-8 text-center">
-              <ShoppingCart className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-              <p className="text-xl text-gray-600 mb-2">Your cart is empty</p>
-              <p className="text-gray-500">Add some amazing robots to get started!</p>
+              <ShoppingCart className="w-16 h-16 mx-auto text-green-400 mb-4 animate-pulse" />
+              <p className="text-xl text-green-400 mb-2 font-mono">[CART_EMPTY]</p>
+              <p className="text-cyan-400 font-mono">Initialize neural units to proceed</p>
             </div>
           ) : (
             <>
               <div className="max-h-96 overflow-y-auto p-6">
                 <div className="space-y-4">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 p-4 border rounded-lg">
+                    <div key={item.id} className="flex items-center space-x-4 p-4 border border-green-500/30 rounded-lg bg-black/80 hover:border-cyan-500/50 transition-colors">
                       <img 
                         src={item.image} 
                         alt={item.name}
-                        className="w-16 h-16 object-cover rounded"
+                        className="w-16 h-16 object-cover rounded border border-green-500/30 filter brightness-75 contrast-125"
                       />
                       <div className="flex-1">
-                        <h3 className="font-semibold">{item.name}</h3>
-                        <p className="text-blue-600 font-bold">${item.price}</p>
+                        <h3 className="font-semibold text-green-400 font-mono">{item.name}</h3>
+                        <p className="text-cyan-400 font-bold font-mono">${item.price}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="border-green-500/50 text-green-400 hover:bg-green-500/10"
                         >
                           <Minus className="w-4 h-4" />
                         </Button>
-                        <span className="w-8 text-center">{item.quantity}</span>
+                        <span className="w-8 text-center text-green-400 font-mono">{item.quantity}</span>
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="border-green-500/50 text-green-400 hover:bg-green-500/10"
                         >
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -94,6 +96,7 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
                           variant="destructive"
                           size="icon"
                           onClick={() => removeFromCart(item.id)}
+                          className="bg-red-600/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
                         >
                           <X className="w-4 h-4" />
                         </Button>
@@ -103,18 +106,18 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
                 </div>
               </div>
               
-              <div className="border-t p-6">
+              <div className="border-t border-green-500/30 p-6 bg-black/90">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-xl font-bold">Total: ${getTotalPrice()}</span>
-                  <span className="text-gray-600">Including all taxes</span>
+                  <span className="text-xl font-bold text-green-400 font-mono">TOTAL: ${getTotalPrice()}</span>
+                  <span className="text-cyan-400 font-mono">All taxes included</span>
                 </div>
                 <Button 
                   onClick={handleProceedToPayment}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="w-full bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 text-black font-mono border border-green-500"
                   size="lg"
                 >
                   <CreditCard className="w-5 h-5 mr-2" />
-                  Proceed to Payment
+                  INITIATE_PAYMENT
                 </Button>
               </div>
             </>

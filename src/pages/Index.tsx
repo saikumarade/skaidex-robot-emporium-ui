@@ -378,7 +378,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </div>
+      </footer>
 
       {/* Cart Modal */}
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />

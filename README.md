@@ -1,73 +1,120 @@
-# Welcome to your Lovable project
 
-## Project info
+# Skaidex Robotics E-Commerce Platform
 
-**URL**: https://lovable.dev/projects/82e188e7-9e8b-4e88-877f-1d2d3ccb32bd
+A modern, responsive e-commerce application for selling advanced robotics products with beautiful UI and comprehensive product features.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Modern Design**: Beautiful gradient-based UI with smooth animations
+- **Product Showcase**: Detailed robot specifications and pricing
+- **Responsive Layout**: Works perfectly on desktop and mobile devices
+- **Interactive Elements**: Hover effects, smooth transitions, and engaging user experience
+- **Professional Branding**: Clean typography and consistent visual identity
 
-**Use Lovable**
+## Robot Products
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/82e188e7-9e8b-4e88-877f-1d2d3ccb32bd) and start prompting.
+- **SkaiBot Pro X1**: Flagship autonomous robot with AI capabilities
+- **SkaiBot Home Assistant**: Smart home automation and security
+- **SkaiBot Industrial Max**: Heavy-duty industrial automation
+- **SkaiBot Mini Explorer**: Educational and hobbyist programming robot
 
-Changes made via Lovable will be committed automatically to this repo.
+## Quick Start with Docker
 
-**Use your preferred IDE**
+### Prerequisites
+- Docker installed on your system
+- Docker Compose (optional, for easier management)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Option 1: Using Docker Compose (Recommended)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone or download this repository
+2. Navigate to the project directory
+3. Run the application:
 
-Follow these steps:
+```bash
+docker-compose up --build
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+The application will be available at http://localhost:3000
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Option 2: Using Docker directly
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Build the Docker image:
+```bash
+docker build -t skaidex-robotics .
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+2. Run the container:
+```bash
+docker run -p 3000:3000 skaidex-robotics
+```
+
+### Stopping the Application
+
+If using Docker Compose:
+```bash
+docker-compose down
+```
+
+If using Docker directly:
+```bash
+docker stop <container-id>
+```
+
+## Development
+
+### Local Development Setup
+
+If you want to run the application locally for development:
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Technologies Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **React** - Frontend framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling and responsive design
+- **Vite** - Build tool and development server
+- **Lucide React** - Beautiful icons
+- **Shadcn/ui** - Premium UI components
 
-**Use GitHub Codespaces**
+## Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/         # Application pages
+│   ├── hooks/         # Custom React hooks
+│   └── lib/           # Utility functions
+├── public/            # Static assets
+├── Dockerfile         # Docker configuration
+├── docker-compose.yml # Docker Compose configuration
+└── package.json       # Project dependencies
+```
 
-## What technologies are used for this project?
+## Customization
 
-This project is built with:
+The application is built with modularity in mind. You can easily:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Add new robot products by updating the robots array in `src/pages/Index.tsx`
+- Customize colors and styling through Tailwind CSS classes
+- Add new features by creating additional components
+- Integrate with payment systems and backend APIs
 
-## How can I deploy this project?
+## Production Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/82e188e7-9e8b-4e88-877f-1d2d3ccb32bd) and click on Share -> Publish.
+For production deployment, the Docker container serves a built version of the application using the `serve` package, which provides optimal performance for static React applications.
 
-## Can I connect a custom domain to my Lovable project?
+## Support
 
-Yes, you can!
+For questions or support regarding Skaidex Robotics products and this e-commerce platform, please contact our development team.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+© 2024 Skaidex Robotics. All rights reserved.
+```

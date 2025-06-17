@@ -39,56 +39,56 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-[80vh] overflow-hidden bg-black border-green-500/50">
-        <CardHeader className="border-b border-green-500/30 bg-black/90">
+      <Card className="w-full max-w-2xl max-h-[80vh] overflow-hidden bg-gray-800 border-gray-700">
+        <CardHeader className="border-b border-gray-700 bg-gray-900">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl flex items-center gap-2 text-green-400 font-mono">
-              <Terminal className="w-6 h-6" />
-              [CART_SYSTEM] ({getTotalItems()} units)
+            <CardTitle className="text-2xl flex items-center gap-2 text-white">
+              <ShoppingCart className="w-6 h-6" />
+              Shopping Cart ({getTotalItems()} items)
             </CardTitle>
-            <Button variant="ghost" size="icon" onClick={onClose} className="text-green-400 hover:text-cyan-400 hover:bg-green-500/10">
+            <Button variant="ghost" size="icon" onClick={onClose} className="text-gray-400 hover:text-white hover:bg-gray-700">
               <X className="w-6 h-6" />
             </Button>
           </div>
         </CardHeader>
         
-        <CardContent className="p-0 bg-black/95">
+        <CardContent className="p-0 bg-gray-800">
           {cartItems.length === 0 ? (
             <div className="p-8 text-center">
-              <ShoppingCart className="w-16 h-16 mx-auto text-green-400 mb-4 animate-pulse" />
-              <p className="text-xl text-green-400 mb-2 font-mono">[CART_EMPTY]</p>
-              <p className="text-cyan-400 font-mono">Initialize neural units to proceed</p>
+              <ShoppingCart className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+              <p className="text-xl text-white mb-2">Your cart is empty</p>
+              <p className="text-gray-400">Add some robots to get started</p>
             </div>
           ) : (
             <>
               <div className="max-h-96 overflow-y-auto p-6">
                 <div className="space-y-4">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 p-4 border border-green-500/30 rounded-lg bg-black/80 hover:border-cyan-500/50 transition-colors">
+                    <div key={item.id} className="flex items-center space-x-4 p-4 border border-gray-700 rounded-lg bg-gray-900/50 hover:border-blue-500/50 transition-colors">
                       <img 
                         src={item.image} 
                         alt={item.name}
-                        className="w-16 h-16 object-cover rounded border border-green-500/30 filter brightness-75 contrast-125"
+                        className="w-16 h-16 object-cover rounded border border-gray-600"
                       />
                       <div className="flex-1">
-                        <h3 className="font-semibold text-green-400 font-mono">{item.name}</h3>
-                        <p className="text-cyan-400 font-bold font-mono">${item.price}</p>
+                        <h3 className="font-semibold text-white">{item.name}</h3>
+                        <p className="text-blue-400 font-bold">${item.price}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="border-green-500/50 text-green-400 hover:bg-green-500/10"
+                          className="border-gray-600 text-gray-400 hover:bg-gray-700"
                         >
                           <Minus className="w-4 h-4" />
                         </Button>
-                        <span className="w-8 text-center text-green-400 font-mono">{item.quantity}</span>
+                        <span className="w-8 text-center text-white">{item.quantity}</span>
                         <Button
                           variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="border-green-500/50 text-green-400 hover:bg-green-500/10"
+                          className="border-gray-600 text-gray-400 hover:bg-gray-700"
                         >
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -106,18 +106,18 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
                 </div>
               </div>
               
-              <div className="border-t border-green-500/30 p-6 bg-black/90">
+              <div className="border-t border-gray-700 p-6 bg-gray-900">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-xl font-bold text-green-400 font-mono">TOTAL: ${getTotalPrice()}</span>
-                  <span className="text-cyan-400 font-mono">All taxes included</span>
+                  <span className="text-xl font-bold text-white">Total: ${getTotalPrice()}</span>
+                  <span className="text-gray-400">All taxes included</span>
                 </div>
                 <Button 
                   onClick={handleProceedToPayment}
-                  className="w-full bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 text-black font-mono border border-green-500"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white"
                   size="lg"
                 >
                   <CreditCard className="w-5 h-5 mr-2" />
-                  INITIATE_PAYMENT
+                  Proceed to Payment
                 </Button>
               </div>
             </>
